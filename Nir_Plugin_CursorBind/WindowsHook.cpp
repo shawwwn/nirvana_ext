@@ -17,8 +17,13 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 		CWPSTRUCT* msg=(CWPSTRUCT*)lParam;
 		switch (msg->message)
 		{
+		// TODO: Add logic to deal with clicking on the system bar but not moving window
 		case WM_SYSCOMMAND:
-			sysCmdOn=true;
+			if (wParam == SC_MAXIMIZE) {
+				hookOn = false;
+				sysCmdOn=false;
+			}
+			else sysCmdOn=true;
 			break;
 		case WM_CAPTURECHANGED:
 			if (!sysCmdOn && !hookOn)
@@ -27,10 +32,10 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 				bindCursorAsync(); // bind cursor when mouse enter the screen
 			}
 			break;
-		case WM_SIZE:
+		case WM_ENTERSIZEMOVE:
 			hookOn=true;
 			sysCmdOn=false;
-			bindCursorAsync(); // bind cursor when finish sizing
+			//bindCursorAsync(); // bind cursor when finish sizing
 			break;
 		case WM_EXITSIZEMOVE:
 			hookOn=true;

@@ -1,20 +1,33 @@
 #include "Cursor.h"
 
-HWND _wc3Hwnd;
-RECT _wc3Rect;
+HWND _wc3Hwnd=NULL;
 
+volatile int captionHeight=-1;
+volatile int xSizeFrame=-1;
+volatile int ySizeFrame=-1;
+
+void initWindowMetrics()
+{
+	if (_wc3Hwnd==NULL)
+		_wc3Hwnd=FindWindow("Warcraft III", "Warcraft III");
+
+	if (xSizeFrame==-1)
+		xSizeFrame=GetSystemMetrics(SM_CXSIZEFRAME);
+	if (ySizeFrame==-1)
+		ySizeFrame=GetSystemMetrics(SM_CYSIZEFRAME);
+	if (captionHeight==-1)
+		captionHeight=GetSystemMetrics(SM_CYCAPTION);
+}
 
 DWORD WINAPI _bindCursorAsync(LPVOID lpParam)
 {
-	int captionHeight=GetSystemMetrics(SM_CYCAPTION);
-	//MessageBox (0, "Bind!", "Error", MB_ICONINFORMATION);
-	HWND hwnd=FindWindow("Warcraft III", "Warcraft III");
+	initWindowMetrics();
 	RECT rect;
-	GetWindowRect(hwnd, &rect);
-	rect.top+=(captionHeight+5);
-	rect.bottom-=5;
-	rect.left+=5;
-	rect.right-=5;
+	GetWindowRect(_wc3Hwnd, &rect);
+	rect.top+=(captionHeight+ySizeFrame);
+	rect.bottom-=ySizeFrame;
+	rect.left+=xSizeFrame;
+	rect.right-=xSizeFrame;
 	ClipCursor(&rect);
 	return 0;
 }
@@ -27,13 +40,14 @@ void bindCursorAsync()
 
 HWND bindCursor(HWND hwnd)
 {
-	int captionHeight=GetSystemMetrics(SM_CYCAPTION);
-	GetWindowRect(hwnd, &_wc3Rect);
-	_wc3Rect.top+=(captionHeight+5);
-	_wc3Rect.bottom-=5;
-	_wc3Rect.left+=5;
-	_wc3Rect.right-=5;
-	if (ClipCursor(&_wc3Rect))
+	initWindowMetrics();
+	RECT rect;
+	GetWindowRect(hwnd, &rect);
+	rect.top+=(captionHeight+ySizeFrame);
+	rect.bottom-=ySizeFrame;
+	rect.left+=xSizeFrame;
+	rect.right-=xSizeFrame;
+	if (ClipCursor(&rect))
 		return hwnd;
 	return NULL;
 };
