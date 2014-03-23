@@ -74,7 +74,7 @@ void writeRaceSum()
 	//write race sum
 	if (WriteProcessMemory(INVALID_HANDLE_VALUE, (LPVOID)(dwRaceSum), &i, 1, NULL))
 	{
-		MessageBox(NULL, "WriteRaceMemory is a success!", "Success!", MB_OK + MB_ICONINFORMATION); 
+		//MessageBox(NULL, "WriteRaceMemory is a success!", "Success!", MB_OK + MB_ICONINFORMATION); 
 	}
 	else
 	{
@@ -100,6 +100,7 @@ BOOL APIENTRY DllMain (HINSTANCE hInst     /* Library instance handle. */ ,
 		writeRaceSum();
 		loadDll("yd_jass_api.dll");
 		loadDll("Nir_Plugin_CursorBind.dll");
+		loadDll("Nir_Plugin_Manabar.dll");
 		DisableThreadLibraryCalls(hInst);
 	}
 	return TRUE;
