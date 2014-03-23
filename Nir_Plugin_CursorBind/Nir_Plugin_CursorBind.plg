@@ -1,0 +1,68 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Nirvana_ext - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSPDA1C.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "NIR_EXT_EXPORTS" /Fo"Build\Release/" /Fd"Build\Release/" /FD /c 
+"D:\Program Files\VC6cn\MyProjects\Nirvana_ext\Nirvana_ext.cpp"
+]
+Creating command line "cl.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSPDA1C.tmp" 
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSPDA1D.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"Build\Release/Nirvana_ext.pdb" /machine:I386 /out:"Build\Release/Nirvana_ext.dll" /implib:"Build\Release/Nirvana_ext.lib" 
+".\Build\Release\Nirvana_ext.obj"
+]
+Creating command line "link.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSPDA1D.tmp"
+<h3>Output Window</h3>
+Compiling...
+Nirvana_ext.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+Nirvana_ext.dll - 0 error(s), 0 warning(s)
+<h3>
+--------------------Configuration: Nir_Plugin_Manabar - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSPDBB4.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "NIR_PLUGIN_MANABAR_EXPORTS" /Fo"..\Build\Release/" /Fd"..\Build\Release/" /FD /c 
+"D:\Program Files\VC6cn\MyProjects\Nirvana_ext\Nir_Plugin_Manabar\Nir_Plugin_Manabar.cpp"
+]
+Creating command line "cl.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSPDBB4.tmp" 
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSPDBB5.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /incremental:no /pdb:"..\Build\Release/Nir_Plugin_Manabar.pdb" /machine:I386 /out:"..\Build\Release/Nir_Plugin_Manabar.dll" /implib:"..\Build\Release/Nir_Plugin_Manabar.lib" 
+"\Program Files\VC6cn\MyProjects\Nirvana_ext\Build\Release\Nir_Plugin_Manabar.obj"
+]
+Creating command line "link.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSPDBB5.tmp"
+<h3>Output Window</h3>
+Compiling...
+Nir_Plugin_Manabar.cpp
+Linking...
+LINK : warning LNK4078: multiple ".text" sections found with different attributes (40000040)
+LINK : warning LNK4078: multiple ".text" sections found with different attributes (C0000040)
+
+
+
+<h3>Results</h3>
+Nir_Plugin_Manabar.dll - 0 error(s), 0 warning(s)
+<h3>
+--------------------Configuration: Nir_Plugin_CursorBind - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+
+
+
+<h3>Results</h3>
+Nir_Plugin_CursorBind.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

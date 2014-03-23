@@ -1,0 +1,5 @@
+# Microsoft Developer Studio Generated Dependency File, included by Nirvana_ext.mak
+
+.\Nirvana_ext.cpp : \
+	"..\..\vc98\include\basetsd.h"\
+	

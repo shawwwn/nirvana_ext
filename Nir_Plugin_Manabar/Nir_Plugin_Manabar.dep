@@ -1,0 +1,6 @@
+# Microsoft Developer Studio Generated Dependency File, included by Nir_Plugin_Manabar.mak
+
+.\Nir_Plugin_Manabar.cpp : \
+	"..\..\..\vc98\include\basetsd.h"\
+	".\Nir_Plugin_Manabar.h"\
+	
