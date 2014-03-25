@@ -10,7 +10,7 @@ void readIni(std::vector<char*> &raceList)
 	// read the whole file to memory
 	//std::ifstream ini("Nirvana.ini", std::ios::in);
 	// TODO: Restore the last line, remove the next line.
-	std::ifstream ini_fs("D:\\Program Files\\VC6cn\\MyProjects\\Nirvana_ext\\Build\\Release\\Nirvana.ini", std::ios::in || std::ios::binary);
+	std::ifstream ini_fs("D:\\Program Files\\VC6cn\\MyProjects\\Nirvana_ext\\Build\\bin\\Nirvana.ini", std::ios::in || std::ios::binary);
 	if (!ini_fs)
 		return;
 

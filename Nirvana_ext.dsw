@@ -63,6 +63,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "Nir_Plugin_Sample"=".\Nir_Plugin_Sample\Nir_Plugin_Sample.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "Nirvana_ext"=".\Nirvana_ext.dsp" - Package Owner=<4>
 
 Package=<5>

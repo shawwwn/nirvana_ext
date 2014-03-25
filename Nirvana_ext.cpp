@@ -90,12 +90,7 @@ BOOL APIENTRY DllMain (HINSTANCE hInst, DWORD reason, LPVOID reserved)
 		*/
 		vector<char*> raceList;
 		readIni(RaceList);
-
-		cout << endl << "raceList:" << endl;
-		for(int i=0; i<RaceList.size(); i++)
-		{
-			cout << RaceList[i] << endl;
-		}
+		loadDll("Nir_Plugin_Sample.dll");
 	}
 	return TRUE;
 }
