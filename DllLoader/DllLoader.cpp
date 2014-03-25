@@ -11,7 +11,7 @@ void pause()
 
 int main() {
 	cout << "Load Library..." << endl;
-	HINSTANCE hGetProcIDDLL = LoadLibrary("Nirvana_ext.dll.dll");
+	HINSTANCE hGetProcIDDLL = LoadLibrary("Nirvana_ext.dll");
 	pause();
 	return 0;
 }

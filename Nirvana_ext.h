@@ -1,24 +1,23 @@
-#ifdef DLL_EXPORTS
-#define DLL_EXPORTS __declspec(dllexport)
-#else
-#define DLL_EXPORTS __declspec(dllimport)
-#endif
+#ifndef H_NIR_EXT_DLL
+#define H_NIR_EXT_DLL
 
 #define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
 #include <vector>
 
 /* exports */
-struct DLL_EXPORTS Plugin {
+struct __declspec(dllexport) Plugin {
 	public:
 		Plugin(void);
 };
 
-DLL_EXPORTS Plugin getPluginInfo(char* pluginName);
+__declspec(dllexport) Plugin getPluginInfo(char* pluginName);
 
 
 /* member variables */
-volatile std::vector<Plugin> PluginList;
+extern volatile std::vector<Plugin> PluginList;
 
 /* member functions */
 void writeRaceSum();
+
+#endif

@@ -2,10 +2,15 @@
 
 #include "Nirvana_ext.h"
 #include "IniFileHandler.h"
+#include <iostream>
 using namespace std;
 
 //#pragma comment(linker, "/ENTRY:DllMain")
 
+Plugin::Plugin(void)
+{
+	// TODO: Add constructor
+}
 
 // Writes amount of race to memory
 void writeRaceSum()
@@ -16,7 +21,7 @@ void writeRaceSum()
 	DWORD dwRaceMenu=0x00BB54B0;
 	DWORD dwRaceSum=0x00BB5480;
 	
-	//HMODULE dwGameModule = GetModuleHandle(NULL);
+	//HMODULE dwGameModule = GetModu leHandle(NULL);
 	HMODULE dwGameModule = GetModuleHandle("Nirvana.dll");
 	dwRaceMenu = (DWORD)dwGameModule + dwRaceMenu;
 	dwRaceSum = (DWORD)dwGameModule + dwRaceSum;
@@ -74,11 +79,19 @@ BOOL APIENTRY DllMain (HINSTANCE hInst, DWORD reason, LPVOID reserved)
 	if (reason==DLL_PROCESS_ATTACH)
 	{
 		DisableThreadLibraryCalls(hInst);
+		/*
 		writeRaceSum();
 		loadDll("yd_jass_api.dll");
 		loadDll("Nir_Plugin_CursorBind.dll");
 		loadDll("Nir_Plugin_Manabar.dll");
 		loadDll("Nir_Plugin_DelayReducer.dll");
+		*/
+		vector<char*> raceList;
+		readIni(raceList);
+		cout << endl << "raceList:" << endl;
+		for(int i=0; i<raceList.size(); i++){
+			cout << raceList[i] << endl;
+		}
 	}
 	return TRUE;
 }
