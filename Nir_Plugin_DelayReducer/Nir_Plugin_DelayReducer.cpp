@@ -2,12 +2,13 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+
 #define ADDRESS unsigned int
 
 #pragma comment(linker,"/entry:DllMain")
-#pragma comment(linker, "/MERGE:.rdata=.text") 
-#pragma comment(linker, "/MERGE:.data=.text") 
-#pragma comment(linker, "/MERGE:code=.text") 
+#pragma comment(linker, "/MERGE:.rdata=.text")
+#pragma comment(linker, "/MERGE:.data=.text")
+#pragma comment(linker, "/MERGE:code=.text")
 #pragma comment(linker,"/SECTION:.text,RWE")
 #pragma optimize("gsy", on)
 

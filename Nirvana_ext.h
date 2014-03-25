@@ -15,7 +15,8 @@ __declspec(dllexport) Plugin getPluginInfo(char* pluginName);
 
 
 /* member variables */
-extern volatile std::vector<Plugin> PluginList;
+__declspec(dllexport) extern std::vector<char*> RaceList;
+__declspec(dllexport) extern std::vector<Plugin> PluginList;
 
 /* member functions */
 void writeRaceSum();

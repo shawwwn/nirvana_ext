@@ -88,6 +88,10 @@ SOURCE=.\Nirvana_ext.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Nirvana_ext_import.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\StringUtils.h
 # End Source File
 # End Group

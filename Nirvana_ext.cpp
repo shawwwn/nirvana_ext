@@ -11,6 +11,8 @@ Plugin::Plugin(void)
 {
 	// TODO: Add constructor
 }
+std::vector<char*> RaceList;
+std::vector<Plugin> PluginList;
 
 // Writes amount of race to memory
 void writeRaceSum()
@@ -87,10 +89,12 @@ BOOL APIENTRY DllMain (HINSTANCE hInst, DWORD reason, LPVOID reserved)
 		loadDll("Nir_Plugin_DelayReducer.dll");
 		*/
 		vector<char*> raceList;
-		readIni(raceList);
+		readIni(RaceList);
+
 		cout << endl << "raceList:" << endl;
-		for(int i=0; i<raceList.size(); i++){
-			cout << raceList[i] << endl;
+		for(int i=0; i<RaceList.size(); i++)
+		{
+			cout << RaceList[i] << endl;
 		}
 	}
 	return TRUE;
