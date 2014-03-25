@@ -1,11 +1,10 @@
 // IniFileHandler.cpp
 
 #include "IniFileHandler.h"
-#include "Nirvana_ext.h"
 #include <iostream>
 using namespace std;
 
-void readIni(std::vector<char*> &raceList)
+void readIni(std::vector<char*> &raceList, std::vector<Plugin> &pluginList)
 {
 	// read the whole file to memory
 	//std::ifstream ini("Nirvana.ini", std::ios::in);

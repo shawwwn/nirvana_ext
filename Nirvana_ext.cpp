@@ -88,8 +88,7 @@ BOOL APIENTRY DllMain (HINSTANCE hInst, DWORD reason, LPVOID reserved)
 		loadDll("Nir_Plugin_Manabar.dll");
 		loadDll("Nir_Plugin_DelayReducer.dll");
 		*/
-		vector<char*> raceList;
-		readIni(RaceList);
+		readIni(RaceList, PluginList);	// init parameters for races & plugins 
 		loadDll("Nir_Plugin_Sample.dll");
 	}
 	return TRUE;
