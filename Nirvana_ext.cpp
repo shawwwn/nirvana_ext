@@ -1,32 +1,10 @@
-#define WIN32_LEAN_AND_MEAN 
-#include <Windows.h>
-#include <fstream>
+// Nirvana_ext.cpp
+
+#include "Nirvana_ext.h"
+#include "IniFileHandler.h"
 using namespace std;
 
 //#pragma comment(linker, "/ENTRY:DllMain")
-
-//===============================================
-// Utils Funcs
-//===============================================
-char* trim(char* s)
-{
-    char *end = s + lstrlen(s)-1;
-    while(*s && isspace(*s))
-        *s++ = 0;
-    while(isspace(*end))
-        *end-- = 0;
-    return s;
-}
-
-char* concatenate(char* first, char* last)
-{
-	size_t size = lstrlen(first) + lstrlen(last) + 1;
-	char* result = new char[size];
-	strcpy(result, first);
-	strcat(result, last);
-	return result;
-}
-
 
 
 // Writes amount of race to memory

@@ -11,7 +11,7 @@ void pause()
 
 int main() {
 	cout << "Load Library..." << endl;
-	HINSTANCE hGetProcIDDLL = LoadLibrary("Nir_Plugin_CursorBind.dll");
+	HINSTANCE hGetProcIDDLL = LoadLibrary("Nirvana_ext.dll.dll");
 	pause();
 	return 0;
 }

@@ -1,3 +1,5 @@
+// WindowsHook.h
+
 #ifndef H_WINDOWS_HOOK
 #define H_WINDOWS_HOOK
 //#define WIN32_LEAN_AND_MEAN

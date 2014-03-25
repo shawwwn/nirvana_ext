@@ -50,7 +50,7 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
-# SUBTRACT LINK32 /pdb:none
+# SUBTRACT LINK32 /incremental:yes
 # Begin Special Build Tool
 OutDir=.\Build\Release
 SOURCE="$(InputPath)"
@@ -64,12 +64,32 @@ PostBuild_Cmds=xcopy SampleFiles\*.* $(OutDir) /Y /S /H
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\IniFileHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Nirvana_ext.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\StringUtils.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\IniFileHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Nirvana_ext.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\StringUtils.h
+# End Source File
 # End Group
 # Begin Group "Resource Files"
 
