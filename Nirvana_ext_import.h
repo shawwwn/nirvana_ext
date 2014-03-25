@@ -20,4 +20,4 @@ __declspec(dllimport) extern std::vector<Plugin> PluginList;
 /* import functions */
 __declspec(dllimport) Plugin getPluginInfo(char* pluginName);
 
-#endif
+#endif // H_NIR_EXT_IMP_DLL

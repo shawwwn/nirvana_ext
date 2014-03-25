@@ -94,3 +94,4 @@ packages/
 *.dep
 *.pch
 *.ncb
+*.exp

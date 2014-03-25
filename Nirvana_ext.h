@@ -1,3 +1,5 @@
+// Nirvana_ext.h
+
 #ifndef H_NIR_EXT_DLL
 #define H_NIR_EXT_DLL
 
@@ -21,4 +23,4 @@ __declspec(dllexport) extern std::vector<Plugin> PluginList;
 /* member functions */
 void writeRaceSum();
 
-#endif
+#endif // H_NIR_EXT_DLL
