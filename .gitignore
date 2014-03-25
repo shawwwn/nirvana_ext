@@ -88,3 +88,6 @@ packages/
 *.exe
 *.out
 *.app
+
+*.opt
+*.plg

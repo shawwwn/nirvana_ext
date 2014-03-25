@@ -91,17 +91,16 @@ HINSTANCE loadDll(LPCSTR lpFileName)
 
 //==================================================================================================================================
 
-BOOL APIENTRY DllMain (HINSTANCE hInst     /* Library instance handle. */ ,
-                       DWORD reason        /* Reason this function is being called. */ ,
-                       LPVOID reserved     /* Not used. */ )
+BOOL APIENTRY DllMain (HINSTANCE hInst, DWORD reason, LPVOID reserved)
 {
 	if (reason==DLL_PROCESS_ATTACH)
 	{
+		DisableThreadLibraryCalls(hInst);
 		writeRaceSum();
 		loadDll("yd_jass_api.dll");
 		loadDll("Nir_Plugin_CursorBind.dll");
 		loadDll("Nir_Plugin_Manabar.dll");
-		DisableThreadLibraryCalls(hInst);
+		loadDll("Nir_Plugin_DelayReducer.dll");
 	}
 	return TRUE;
 }
