@@ -5,8 +5,8 @@
 #include "Nirvana_ext.h"
 #include "StringUtils.h"
 #include <vector>
-#include <fstream>
-#include <sstream>
+#include <fstream>             // std::ifstream
+#include <sstream>             // std::istringstream
 
 void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList);
 

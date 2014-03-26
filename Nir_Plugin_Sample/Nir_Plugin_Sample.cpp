@@ -8,7 +8,7 @@
 volatile static HANDLE _selfHandle;
 const char* _PluginName="Nir_Plugin_Sample";
 
-// how to retrieve race list from plugin dll
+// how to loop the race list from plugin dll
 void printRaceList()
 {
 	std::cout << std::endl << "display raceList - from SampleDll" << std::endl;
@@ -18,7 +18,7 @@ void printRaceList()
 	}
 }
 
-// how to retrieve plugin setting from plugin dll
+// how to loop the plugin settings from plugin dll
 void printPluginList()
 {
 	std::cout << std::endl << "display pluginList - from SampleDll" << std::endl;
@@ -37,10 +37,33 @@ void printPluginList()
 	}
 }
 
+// how to use retrieve a single plugin setting
+void printSelfSetting()
+{
+	std::cout << "self information - from SampleDll" << std::endl;
+	char* selfName="Nir_Plugin_Sample.dll"; 
+	Plugin* self=getPluginInfo(selfName);
+	if (self==NULL)
+		return;
+	std::cout << "self Plugin Name: " << self->pluginName << std::endl;
+	int size=self->paramList.size();
+	if (size==0)
+		return;
+	for (int i=0; i < size; i++)
+	{
+		PluginParameter* param_ptr=self->paramList[i];
+		std::cout << "paramName: " << param_ptr->paramName << " - paramValue: " << param_ptr->paramValue << std::endl;
+		int value=atoi(param_ptr->paramValue);
+		std::cout << "int value: " << value << std::endl;
+	}
+}
+
 void initialize()
 {
 	printRaceList();
 	printPluginList();
+	std::cout << std::endl;
+	printSelfSetting();
 	/* Add your own logics */
 }
 

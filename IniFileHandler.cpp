@@ -1,15 +1,11 @@
 // IniFileHandler.cpp
 
 #include "IniFileHandler.h"
-#include <iostream>
-using namespace std;
 
 void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList)
 {
 	// read the whole file to memory
 	std::ifstream ini_fs("Nirvana.ini", std::ios::in || std::ios::binary);
-	// TODO: Restore the last line, remove the next line.
-	//std::ifstream ini_fs("D:\\Program Files\\VC6cn\\MyProjects\\Nirvana_ext\\Build\\bin\\Nirvana.ini", std::ios::in || std::ios::binary);
 	if (!ini_fs)
 		return;
 
@@ -22,7 +18,7 @@ void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList)
 	ini_fs.close();
 	if (!ini_buffer)
 		return;
-	istringstream ini_ss(ini_buffer, strlen(ini_buffer));
+	std::istringstream ini_ss(ini_buffer, strlen(ini_buffer));
 	delete[] ini_buffer;	// no longer needed
 
 
@@ -32,14 +28,15 @@ void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList)
 	while(!ini_ss.eof())
 	{
 		Plugin* plg_ptr;
-		//char* buffer = new char[256];
 		char buffer[256];
 		ini_ss.getline(&buffer[0], 256);
 		char* line=trim(buffer);	// TODO: Add trimComments()
 
-		// return if line is a comment or blank line
+
+		// return if the line is a comment or a blank line
 		if (strncmp (line, "//", 2) == 0 || isBlank(line))
 			continue;
+
 
 		// populate race list
 		bool hitRaceEnd=false;
@@ -66,6 +63,7 @@ void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList)
 		if (hitRaceEnd)
 			continue;
 
+
 		// populate pluginInfo
 		if (line[0]=='-')
 		{
@@ -79,7 +77,7 @@ void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList)
 			char pluginName[64];
 			strncpy(pluginName, &line[1], pluginNameLength);
 			pluginName[pluginNameLength]='\0';
-			cout << "plugin name: " <<pluginName << endl;
+
 			plg_ptr=new Plugin(pluginName);
 			pluginList.push_back(plg_ptr);
 			continue;
@@ -90,20 +88,19 @@ void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList)
 			int pos=getCharIndex(line, '=');
 			if (pos==-1)
 				continue;	// invalid parameter
+
 			char* leftStr=getLeftStr(line, pos);
 			char* rightStr=getRightStr(line, pos);
 			if (leftStr==NULL || rightStr==NULL)
 				continue;	// invalid parameter
+
 			PluginParameter* param=new PluginParameter(leftStr, rightStr, false);
 			plg_ptr->paramList.push_back(param);
-			cout << "paramName: " << leftStr << " - valueName: " << rightStr << endl;
 			continue;
 		}
 
 		// TODO: Add logics to deal with idle lines.
-		cout << "idle line: " << line << endl;
-
-
+		//std::cout << "idle line: " << line << std::endl;
 	}
 	ini_ss.str(""); // clear the stream
 }

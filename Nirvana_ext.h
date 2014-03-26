@@ -17,12 +17,12 @@ struct __declspec(dllexport) PluginParameter {
 
 struct __declspec(dllexport) Plugin {
 	public:
-		char* pluginName;
 		Plugin(char* name);
+		char* pluginName;
 		std::vector<PluginParameter*> paramList;
 };
 
-__declspec(dllexport) Plugin getPluginInfo(char* pluginName);
+__declspec(dllexport) Plugin* getPluginInfo(char* pluginName);
 
 
 /* member variables */

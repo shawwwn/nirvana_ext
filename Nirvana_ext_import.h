@@ -17,8 +17,8 @@ struct __declspec(dllimport) PluginParameter {
 
 struct __declspec(dllimport) Plugin {
 	public:
-		char* pluginName;
 		Plugin(char* name);
+		char* pluginName;
 		std::vector<PluginParameter*> paramList;
 };
 
@@ -27,6 +27,6 @@ __declspec(dllimport) extern std::vector<char*> RaceList;
 __declspec(dllimport) extern std::vector<Plugin*> PluginList;
 
 /* import functions */
-__declspec(dllimport) Plugin getPluginInfo(char* pluginName);
+__declspec(dllimport) Plugin* getPluginInfo(char* pluginName);
 
 #endif // H_NIR_EXT_IMP_DLL
