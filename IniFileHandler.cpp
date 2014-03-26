@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-void readIni(std::vector<char*> &raceList, std::vector<Plugin> &pluginList)
+void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList)
 {
 	// read the whole file to memory
 	//std::ifstream ini("Nirvana.ini", std::ios::in);
@@ -28,15 +28,17 @@ void readIni(std::vector<char*> &raceList, std::vector<Plugin> &pluginList)
 
 	// iterate through each line
 	ini_ss.seekg(0, std::ios::beg);
+	bool pluginFound=false;
 	while(!ini_ss.eof())
 	{
+		Plugin* plg_ptr;
 		//char* buffer = new char[256];
 		char buffer[256];
 		ini_ss.getline(&buffer[0], 256);
 		char* line=trim(buffer);	// TODO: Add trimComments()
 
-		// return if line is a comment 
-		if (strncmp (line, "//", 2) == 0)
+		// return if line is a comment or blank line
+		if (strncmp (line, "//", 2) == 0 || isBlank(line))
 			continue;
 
 		// populate race list
@@ -65,9 +67,41 @@ void readIni(std::vector<char*> &raceList, std::vector<Plugin> &pluginList)
 			continue;
 
 		// populate pluginInfo
-		Plugin plg;
+		if (line[0]=='-')
+		{
+			pluginFound=false;
+			continue;
+		}
+		else if (line[0]=='+')
+		{
+			pluginFound=true;
+			int pluginNameLength=strlen(line)-1;
+			char pluginName[64];
+			strncpy(pluginName, &line[1], pluginNameLength);
+			pluginName[pluginNameLength]='\0';
+			cout << "plugin name: " <<pluginName << endl;
+			plg_ptr=new Plugin(pluginName);
+			pluginList.push_back(plg_ptr);
+			continue;
+		}
 
-		cout << line << endl;
+		if (pluginFound)
+		{
+			int pos=getCharIndex(line, '=');
+			if (pos==-1)
+				continue;	// invalid parameter
+			char* leftStr=getLeftStr(line, pos);
+			char* rightStr=getRightStr(line, pos);
+			if (leftStr==NULL || rightStr==NULL)
+				continue;	// invalid parameter
+			PluginParameter* param=new PluginParameter(leftStr, rightStr, false);
+			plg_ptr->paramList.push_back(param);
+			cout << "paramName: " << leftStr << " - valueName: " << rightStr << endl;
+			continue;
+		}
+
+		// TODO: Add logics to deal with idle lines.
+		cout << "idle line: " << line << endl;
 
 
 	}

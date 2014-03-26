@@ -8,9 +8,18 @@
 #include <vector>
 
 /* exports */
+struct __declspec(dllexport) PluginParameter {
+	public:
+		PluginParameter(char* name, char* value, bool allocNew);
+		char* paramName;
+		char* paramValue;
+};
+
 struct __declspec(dllexport) Plugin {
 	public:
-		Plugin(void);
+		char* pluginName;
+		Plugin(char* name);
+		std::vector<PluginParameter*> paramList;
 };
 
 __declspec(dllexport) Plugin getPluginInfo(char* pluginName);
@@ -18,7 +27,7 @@ __declspec(dllexport) Plugin getPluginInfo(char* pluginName);
 
 /* member variables */
 __declspec(dllexport) extern std::vector<char*> RaceList;
-__declspec(dllexport) extern std::vector<Plugin> PluginList;
+__declspec(dllexport) extern std::vector<Plugin*> PluginList;
 
 /* member functions */
 void writeRaceSum();

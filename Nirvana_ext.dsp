@@ -72,6 +72,10 @@ SOURCE=.\Nirvana_ext.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Plugin.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\StringUtils.cpp
 # End Source File
 # End Group

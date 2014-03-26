@@ -8,14 +8,23 @@
 #include <iostream>
 
 /* import structs */
+struct __declspec(dllimport) PluginParameter {
+	public:
+		PluginParameter(char* name, char* value, bool allocNew);
+		char* paramName;
+		char* paramValue;
+};
+
 struct __declspec(dllimport) Plugin {
 	public:
-		Plugin(void);
+		char* pluginName;
+		Plugin(char* name);
+		std::vector<PluginParameter*> paramList;
 };
 
 /* import global variables */
 __declspec(dllimport) extern std::vector<char*> RaceList;
-__declspec(dllimport) extern std::vector<Plugin> PluginList;
+__declspec(dllimport) extern std::vector<Plugin*> PluginList;
 
 /* import functions */
 __declspec(dllimport) Plugin getPluginInfo(char* pluginName);

@@ -8,6 +8,6 @@
 #include <fstream>
 #include <sstream>
 
-void readIni(std::vector<char*> &raceList, std::vector<Plugin> &pluginList);
+void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList);
 
 #endif // H_INI_FILE_HANDLER

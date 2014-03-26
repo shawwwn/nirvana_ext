@@ -7,13 +7,6 @@ using namespace std;
 
 //#pragma comment(linker, "/ENTRY:DllMain")
 
-Plugin::Plugin(void)
-{
-	// TODO: Add constructor
-}
-std::vector<char*> RaceList;
-std::vector<Plugin> PluginList;
-
 // Writes amount of race to memory
 void writeRaceSum()
 {
