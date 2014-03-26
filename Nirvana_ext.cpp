@@ -5,65 +5,53 @@
 #include <iostream>
 using namespace std;
 
-//#pragma comment(linker, "/ENTRY:DllMain")
-
-// Writes amount of race to memory
-void writeRaceSum()
-{
-	ifstream f1("Nirvana.ini", ios::in);
-	if(!f1)return;
-	int i=0;
-	DWORD dwRaceMenu=0x00BB54B0;
-	DWORD dwRaceSum=0x00BB5480;
-	
-	//HMODULE dwGameModule = GetModu leHandle(NULL);
-	HMODULE dwGameModule = GetModuleHandle("Nirvana.dll");
-	dwRaceMenu = (DWORD)dwGameModule + dwRaceMenu;
-	dwRaceSum = (DWORD)dwGameModule + dwRaceSum;
-	
-	if (dwGameModule==NULL)
-	{
-		MessageBox(NULL, "Cant locate game.dll", "Error!", MB_OK + MB_ICONERROR); 
-		return;
-	}
-	
-	//read from text file and write memory
-	while(!f1.eof())
-	{
-		char *cValue = new char[20];
-		f1.getline(cValue,20);
-		cValue=trim(cValue);
-		if (cValue[0]!=0)
-		{
-			DWORD newdatasize = strlen(cValue); 
-			if (WriteProcessMemory(INVALID_HANDLE_VALUE, (LPVOID)(dwRaceMenu+20*i), cValue, newdatasize, NULL))
-			{
-			  //MessageBox(NULL, "WriteProcessMemory is a success!", "Success!", MB_OK + MB_ICONINFORMATION); 
-			}
-			else
-			{
-				MessageBox(NULL, concatenate("Error cannot WriteProcessMemory! - RaceMenu: ", cValue), "Error!", MB_OK + MB_ICONERROR); 
-			}
-			i++;
-		}
-	}
-	f1.close();
-
-	//write race sum
-	if (WriteProcessMemory(INVALID_HANDLE_VALUE, (LPVOID)(dwRaceSum), &i, 1, NULL))
-	{
-		//MessageBox(NULL, "WriteRaceMemory is a success!", "Success!", MB_OK + MB_ICONINFORMATION); 
-	}
-	else
-	{
-		MessageBox(NULL, "Error cannot WriteProcessMemory! - RaceSum", "Error!", MB_OK + MB_ICONERROR); 
-	}
-}
-
 // Loads dll(to whatever process it's attached to)
 HINSTANCE loadDll(LPCSTR lpFileName)
 {
 	return LoadLibraryA(lpFileName);
+}
+
+void loadPlugins()
+{
+	int size=PluginList.size();
+	if (size==0)
+		return;
+
+	for(int i=0; i < size; i++)
+	{
+		Plugin* plg_ptr=PluginList[i];
+		loadDll(plg_ptr->pluginName);
+	}
+}
+
+void writeRaceSum()
+{
+	int size=RaceList.size();
+	if (size==0)
+		return;
+
+	DWORD raceMenuOffest=0xBB54B0;
+	DWORD raceSumOffest=0xBB5480;
+	HMODULE gameBaseAddress = GetModuleHandle("Nirvana.dll");
+	raceMenuOffest = (DWORD)gameBaseAddress + raceMenuOffest;
+	raceSumOffest = (DWORD)gameBaseAddress + raceSumOffest;
+	if (gameBaseAddress==NULL)
+	{
+		MessageBox(NULL, "Unable to locate Nirvana.dll.", "Error!", MB_OK + MB_ICONERROR); 
+		return;
+	}
+
+	// TODO: Use type cast instead of WriteProcessMemory.
+	int i;
+	for(i=0; i < size; i++)
+	{
+		char* race = RaceList[i];
+		if (!WriteProcessMemory(INVALID_HANDLE_VALUE, (LPVOID)(raceMenuOffest+20*i), race, strlen(race), NULL))
+			MessageBox(NULL, concatenate("Error cannot WriteProcessMemory! - RaceMenu: ", race), "Error!", MB_OK + MB_ICONERROR);
+	}
+
+	if (!WriteProcessMemory(INVALID_HANDLE_VALUE, (LPVOID)(raceSumOffest), &i, sizeof(i), NULL))
+		MessageBox(NULL, "Error unable to write RaceSum.", "Error!", MB_OK + MB_ICONERROR);
 }
 
 
@@ -74,15 +62,11 @@ BOOL APIENTRY DllMain (HINSTANCE hInst, DWORD reason, LPVOID reserved)
 	if (reason==DLL_PROCESS_ATTACH)
 	{
 		DisableThreadLibraryCalls(hInst);
-		/*
-		writeRaceSum();
-		loadDll("yd_jass_api.dll");
-		loadDll("Nir_Plugin_CursorBind.dll");
-		loadDll("Nir_Plugin_Manabar.dll");
-		loadDll("Nir_Plugin_DelayReducer.dll");
-		*/
-		readIni(RaceList, PluginList);	// init parameters for races & plugins 
-		loadDll("Nir_Plugin_Sample.dll");
+		readIni(RaceList, PluginList);	// read settings from nirvana.ini
+		writeRaceSum();                 // write race name array to memory
+		loadDll("yd_jass_api.dll");     // load essential dll
+		loadPlugins();                  // load dlls specified in nirvana.ini
+		//loadDll("Nir_Plugin_Sample.dll");
 	}
 	return TRUE;
 }

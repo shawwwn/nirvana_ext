@@ -30,6 +30,8 @@ __declspec(dllexport) extern std::vector<char*> RaceList;
 __declspec(dllexport) extern std::vector<Plugin*> PluginList;
 
 /* member functions */
+HINSTANCE loadDll(LPCSTR lpFileName);
+void loadPlugins();
 void writeRaceSum();
 
 #endif // H_NIR_EXT_DLL
