@@ -26,16 +26,19 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 			else sysCmdOn=true;
 			break;
 		case WM_CAPTURECHANGED:
-			if (!sysCmdOn && !hookOn)
+			if (!sysCmdOn)
 			{
-				hookOn=true;
+				if (!hookOn)
+					hookOn=true;
 				bindCursorAsync(); // bind cursor when mouse enter the screen
 			}
+			else
+				sysCmdOn=false;
 			break;
-		case WM_ENTERSIZEMOVE:
+		case WM_SIZE:
 			hookOn=true;
 			sysCmdOn=false;
-			//bindCursorAsync(); // bind cursor when finish sizing
+			bindCursorAsync(); // bind cursor when finish sizing
 			break;
 		case WM_EXITSIZEMOVE:
 			hookOn=true;
