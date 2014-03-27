@@ -22,7 +22,7 @@ struct __declspec(dllexport) Plugin {
 		std::vector<PluginParameter*> paramList;
 };
 
-__declspec(dllexport) Plugin* getPluginInfo(char* pluginName);
+__declspec(dllexport) Plugin* getPluginInfo(const char* pluginName);
 
 
 /* member variables */

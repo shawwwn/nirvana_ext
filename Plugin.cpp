@@ -32,7 +32,7 @@ Plugin::Plugin(char* name)
 std::vector<char*> RaceList;
 std::vector<Plugin*> PluginList;
 
-Plugin* getPluginInfo(char* pluginName)
+Plugin* getPluginInfo(const char* pluginName)
 {
 	int size=PluginList.size();
 	if (size==0)

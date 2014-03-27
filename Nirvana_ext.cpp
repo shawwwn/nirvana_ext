@@ -64,7 +64,7 @@ BOOL APIENTRY DllMain (HINSTANCE hInst, DWORD reason, LPVOID reserved)
 		DisableThreadLibraryCalls(hInst);
 		readIni(RaceList, PluginList);	// read settings from nirvana.ini
 		writeRaceSum();                 // write race name array to memory
-		loadDll("yd_jass_api.dll");     // load essential dll
+		//loadDll("yd_jass_api.dll");     // load essential dll
 		loadPlugins();                  // load dlls specified in nirvana.ini
 		//loadDll("Nir_Plugin_Sample.dll");
 	}

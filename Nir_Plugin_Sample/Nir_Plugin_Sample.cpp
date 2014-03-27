@@ -8,7 +8,7 @@
 volatile static HANDLE _selfHandle;
 const char* _PluginName="Nir_Plugin_Sample";
 
-// how to loop the race list from plugin dll
+// looping through the race list from plugin dll
 void printRaceList()
 {
 	std::cout << std::endl << "display raceList - from SampleDll" << std::endl;
@@ -18,7 +18,7 @@ void printRaceList()
 	}
 }
 
-// how to loop the plugin settings from plugin dll
+// looping through the plugin settings from plugin dll
 void printPluginList()
 {
 	std::cout << std::endl << "display pluginList - from SampleDll" << std::endl;
@@ -37,7 +37,7 @@ void printPluginList()
 	}
 }
 
-// how to use retrieve a single plugin setting
+// retrieve a single plugin setting
 void printSelfSetting()
 {
 	std::cout << "self information - from SampleDll" << std::endl;
