@@ -1,19 +1,9 @@
 // CursorLimit.cpp
 
 #include "WindowsHook.h"
+#include "PluginInfo.h"
 
-#pragma comment(linker,"/entry:DllMain")
-#pragma comment(linker, "/MERGE:.rdata=.text") 
-#pragma comment(linker, "/MERGE:.data=.text") 
-#pragma comment(linker, "/MERGE:code=.text") 
-#pragma comment(linker,"/SECTION:.text,RWE")
-#pragma optimize("gsy", on)
-
-static HANDLE _selfHandle;
-static HANDLE _threadHandle;
-static HHOOK _wc3WndHook_fg;
-
-DWORD WINAPI initialize(LPVOID lpParam)
+DWORD WINAPI hookWindow(LPVOID lpParam)
 {
 	HWND wc3Hwnd=NULL;
 	while (wc3Hwnd==NULL)
@@ -24,14 +14,35 @@ DWORD WINAPI initialize(LPVOID lpParam)
 	// wc3 main window created
 	HINSTANCE hModule=(HINSTANCE)lpParam;
 	//bindCursor("Warcraft III", "Warcraft III");
-	bindCursor(wc3Hwnd);
-	_wc3WndHook_fg=DeployWindowsHook(wc3Hwnd, hModule);
+	bindCursor(wc3Hwnd, paramValue1);
+
+	_wc3WndHook_fg=DeployWindowsHook(wc3Hwnd, hModule, paramValue1);
 	if (_wc3WndHook_fg==NULL)
 		MessageBox (0, "Deploy hook failed!", "Error", MB_ICONINFORMATION);
 	else
 		hookOn=true;
 	SuspendThread(GetCurrentThread());	// suspend this thread so that the hook won't get killed
 	return 0;
+}
+
+// TODO: Use unify method to pass paramValue into the hook procedure
+void initialize()
+{
+	Plugin* plg=getPluginInfo(_pluginName);
+	if (plg==NULL)
+		return;
+
+	int size=plg->paramList.size();
+	if (size==0)
+		return;
+
+	for (int i=0; i < size; i++)
+	{
+		PluginParameter* param_ptr=plg->paramList[i];
+		char* parameterName=param_ptr->paramName;
+		if (strcmp(parameterName, _paramName1)==0)
+			paramValue1=atoi(param_ptr->paramValue);
+	}
 }
 
 BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
@@ -41,7 +52,8 @@ BOOL APIENTRY DllMain(HINSTANCE hModule, DWORD ul_reason_for_call, LPVOID lpRese
 	{
 	case DLL_PROCESS_ATTACH:
 		{
-			_threadHandle=CreateThread(NULL, NULL, initialize, hModule, NULL, NULL);
+			initialize();
+			_threadHandle=CreateThread(NULL, NULL, hookWindow, hModule, NULL, NULL);
 			//HWND wc3Hwnd=bindCursor("Warcraft III", "Warcraft III");
 			//_wc3WndHook_fg=DeployWindowsHook(wc3Hwnd, hModule);
 			break;

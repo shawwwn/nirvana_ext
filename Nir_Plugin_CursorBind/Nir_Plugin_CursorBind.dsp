@@ -77,6 +77,10 @@ SOURCE=.\Cursor.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\PluginInfo.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\WindowsHook.h
 # End Source File
 # End Group

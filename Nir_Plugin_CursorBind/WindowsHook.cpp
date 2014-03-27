@@ -17,7 +17,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 		CWPSTRUCT* msg=(CWPSTRUCT*)lParam;
 		switch (msg->message)
 		{
-		// TODO: Add logic to deal with clicking on the system bar but not moving window
+		// TODO: Add logic to deal with WM_CAPTURECHANGED being called multipled times
 		case WM_SYSCOMMAND:
 			if (wParam == SC_MAXIMIZE) {
 				hookOn = false;
@@ -29,8 +29,10 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 			if (!sysCmdOn)
 			{
 				if (!hookOn)
+				{
 					hookOn=true;
-				bindCursorAsync(); // bind cursor when mouse enter the screen
+					bindCursorAsync(); // bind cursor when mouse enter the screen
+				}
 			}
 			else
 				sysCmdOn=false;
@@ -47,9 +49,7 @@ LRESULT WINAPI CallWndProc(int nCode, WPARAM wParam, LPARAM lParam)
 			break;
 		case WM_SETFOCUS:
 			if (hookOn)
-			{
 				bindCursorAsync(); // bind cursor when gain focus
-			}
 			break;
 		case WM_KILLFOCUS:
 			hookOn=false;
@@ -68,10 +68,11 @@ DWORD GetWindowsThreadId(HWND hwnd)
 	return _wc3wThreadId;
 };
 
-HHOOK DeployWindowsHook(DWORD wThreadId, HINSTANCE selfHandle)
+HHOOK DeployWindowsHook(DWORD wThreadId, HINSTANCE selfHandle, int margin)
 {
 	if (wThreadId==0)
 		return NULL;
+	cursorMargin=margin;	// pass the paramValue into cursor.cpp 
 
 	//_wc3WndHook=SetWindowsHookEx(WH_CALLWNDPROC, (HOOKPROC)CallWndProc, GetModuleHandle("CursorLimit.dll"), wThreadId);
 	#ifdef _DEBUG  
@@ -83,9 +84,9 @@ HHOOK DeployWindowsHook(DWORD wThreadId, HINSTANCE selfHandle)
 	return _wc3WndHook;
 };
 
-HHOOK DeployWindowsHook(HWND hwnd, HINSTANCE selfHandle)
+HHOOK DeployWindowsHook(HWND hwnd, HINSTANCE selfHandle, int margin)
 {
-	return DeployWindowsHook(GetWindowsThreadId(hwnd), selfHandle);
+	return DeployWindowsHook(GetWindowsThreadId(hwnd), selfHandle, margin);
 };
 
 BOOL RemoveWindowsHook(HHOOK wc3WndHook)

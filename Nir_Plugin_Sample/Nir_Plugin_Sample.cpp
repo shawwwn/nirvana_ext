@@ -53,8 +53,8 @@ void printSelfSetting()
 	{
 		PluginParameter* param_ptr=self->paramList[i];
 		std::cout << "paramName: " << param_ptr->paramName << " - paramValue: " << param_ptr->paramValue << std::endl;
-		int value=atoi(param_ptr->paramValue);
-		std::cout << "int value: " << value << std::endl;
+		double value=atof(param_ptr->paramValue);
+		std::cout << "double value: " << value << std::endl;
 	}
 }
 

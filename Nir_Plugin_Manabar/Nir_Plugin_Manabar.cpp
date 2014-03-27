@@ -2,20 +2,34 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-#include "Nir_Plugin_Manabar.h"
+#include "PluginInfo.h"
 
-#pragma comment(linker,"/entry:DllMain")
-#pragma comment(linker, "/MERGE:.rdata=.text") 
-#pragma comment(linker, "/MERGE:.data=.text") 
-#pragma comment(linker, "/MERGE:code=.text") 
-#pragma comment(linker,"/SECTION:.text,RWE")
-#pragma optimize("gsy", on)
+// retrieve plugin info
+void initialize()
+{
+	Plugin* plg=getPluginInfo(_pluginName);
+	if (plg==NULL)
+		return;
+
+	int size=plg->paramList.size();
+	if (size==0)
+		return;
+
+	for (int i=0; i < size; i++)
+	{
+		PluginParameter* param_ptr=plg->paramList[i];
+		char* parameterName=param_ptr->paramName;
+		if (strcmp(parameterName, _paramName1)==0)
+			paramValue1=atof(param_ptr->paramValue);
+	}
+}
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  ul_reason_for_call, LPVOID lpReserved)
 {
     if (ul_reason_for_call == DLL_PROCESS_ATTACH)
     {
         DisableThreadLibraryCalls(hModule);
+		initialize();
         ShowManaBar();
     }
     return TRUE; 
@@ -336,6 +350,7 @@ void Hook(ADDRESS lpBase)
 
 BOOL WINAPI ShowManaBar()
 {
+	a1649D0*=paramValue1;	// set thickness
     *(int*)&a3000AC = 1;
 	HMODULE hMod = GetModuleHandle("storm.dll");
     a16F088 = (ADDRESS)GetProcAddress(hMod, (LPCSTR)0x191);
