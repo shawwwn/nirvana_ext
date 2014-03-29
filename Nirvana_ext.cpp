@@ -41,17 +41,15 @@ void writeRaceSum()
 		return;
 	}
 
-	// TODO: Use type cast instead of WriteProcessMemory.
 	int i;
 	for(i=0; i < size; i++)
 	{
 		char* race = RaceList[i];
-		if (!WriteProcessMemory(INVALID_HANDLE_VALUE, (LPVOID)(raceMenuOffest+20*i), race, strlen(race), NULL))
-			MessageBox(NULL, concatenate("Error cannot WriteProcessMemory! - RaceMenu: ", race), "Error!", MB_OK + MB_ICONERROR);
+		char* dest = (char*)(raceMenuOffest+20*i);
+		strcpy(dest, race);
 	}
 
-	if (!WriteProcessMemory(INVALID_HANDLE_VALUE, (LPVOID)(raceSumOffest), &i, sizeof(i), NULL))
-		MessageBox(NULL, "Error unable to write RaceSum.", "Error!", MB_OK + MB_ICONERROR);
+	*(int*)(raceSumOffest)=i;
 }
 
 
