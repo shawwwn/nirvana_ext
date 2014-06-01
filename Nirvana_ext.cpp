@@ -65,6 +65,7 @@ BOOL APIENTRY DllMain (HINSTANCE hInst, DWORD reason, LPVOID reserved)
 		loadDll("yd_jass_api.dll");     // load essential dll
 		loadPlugins();                  // load dlls specified in nirvana.ini
 		//loadDll("Nir_Plugin_Sample.dll");
+		hookDirect3DCreate8();
 	}
 	return TRUE;
 }

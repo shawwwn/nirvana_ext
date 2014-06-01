@@ -64,6 +64,14 @@ PostBuild_Cmds=xcopy SampleFiles\*.* $(OutDir) /Y /S /H
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\IAT.CPP
+# End Source File
+# Begin Source File
+
+SOURCE=.\IATHookHandler.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\IniFileHandler.cpp
 # End Source File
 # Begin Source File
@@ -82,6 +90,14 @@ SOURCE=.\StringUtils.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\IAT.H
+# End Source File
+# Begin Source File
+
+SOURCE=.\IATHookHandler.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\IniFileHandler.h
