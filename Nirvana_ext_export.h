@@ -3,7 +3,6 @@
 
 #define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
-#include <vector>
 
 #ifdef BUILDING_NIR_EXT
 #	define DECLSPECIFIER __declspec(dllexport)

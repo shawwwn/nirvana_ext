@@ -3,24 +3,22 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include "PluginInfo.h"
+#include <stdlib.h>
 
 // retrieve plugin info
 void initialize()
 {
-	Plugin* plg=getPluginInfo(_pluginName);
-	if (plg==NULL)
+	Plugin* pPlugin=getPluginInfo(_pluginName);
+	if (pPlugin==NULL)
+		return;
+	if (pPlugin->parameterSize==0)
 		return;
 
-	int size=plg->paramList.size();
-	if (size==0)
-		return;
-
-	for (int i=0; i < size; i++)
+	for (int i=0; i < pPlugin->parameterSize; i++)
 	{
-		PluginParameter* param_ptr=plg->paramList[i];
-		char* parameterName=param_ptr->paramName;
-		if (strcmp(parameterName, _paramName1)==0)
-			paramValue1=atof(param_ptr->paramValue);
+		PluginParameter* pParam=pPlugin->pParameterList[i];
+		if (strcmp(pParam->paramName, _paramName1)==0)
+			paramValue1=atof(pParam->paramValue);
 	}
 }
 

@@ -1,68 +1,37 @@
 // Nir_Plugin_Sample.cpp
 
+#include <iostream>
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
-#include "../Nirvana_ext_import.h"
+#include "../Nirvana_ext_export.h"
 #pragma comment(lib, "../Build/bin/Nirvana_ext.lib")
 
 volatile static HANDLE _selfHandle;
-const char* _PluginName="Nir_Plugin_Sample";
-
-// looping through the race list from plugin dll
-void printRaceList()
-{
-	std::cout << std::endl << "display raceList - from SampleDll" << std::endl;
-	for(int i=0; i<RaceList.size(); i++)
-	{
-		std::cout << RaceList[i] << std::endl;
-	}
-}
-
-// looping through the plugin settings from plugin dll
-void printPluginList()
-{
-	std::cout << std::endl << "display pluginList - from SampleDll" << std::endl;
-	for(int i=0; i < PluginList.size(); i++)
-	{
-		Plugin* plg_ptr=PluginList[i];
-		std::cout << plg_ptr->pluginName << std::endl;
-		if (plg_ptr->paramList.size()>0)
-		{
-			for (int j=0; j < plg_ptr->paramList.size(); j++)
-			{
-				PluginParameter* param_ptr = plg_ptr->paramList[j];
-				std::cout << "paramName: " << param_ptr->paramName << " - paramValue: " << param_ptr->paramValue << std::endl;
-			}
-		}
-	}
-}
+const char* _PluginName="Nir_Plugin_Sample.dll";
 
 // retrieve a single plugin setting
 void printSelfSetting()
 {
 	std::cout << "self information - from SampleDll" << std::endl;
-	char* selfName="Nir_Plugin_Sample.dll"; 
-	Plugin* self=getPluginInfo(selfName);
-	if (self==NULL)
+
+	Plugin* pPlugin=getPluginInfo(_PluginName);
+	if (pPlugin==NULL)
 		return;
-	std::cout << "self Plugin Name: " << self->pluginName << std::endl;
-	int size=self->paramList.size();
-	if (size==0)
+	std::cout << "self Plugin Name: " << pPlugin->pluginName << std::endl;
+	if (pPlugin->parameterSize==0)
 		return;
-	for (int i=0; i < size; i++)
+	for (int i=0; i < pPlugin->parameterSize; i++)
 	{
-		PluginParameter* param_ptr=self->paramList[i];
-		std::cout << "paramName: " << param_ptr->paramName << " - paramValue: " << param_ptr->paramValue << std::endl;
-		double value=atof(param_ptr->paramValue);
-		std::cout << "double value: " << value << std::endl;
+		PluginParameter* pParam = pPlugin->pParameterList[i];
+		std::cout << "paramName: " << pParam->paramName << " - paramValue: " << pParam->paramValue << std::endl;
+		double value=atof(pParam->paramValue);
+		std::cout << "double: " << value << std::endl;
+		pParam = NULL;
 	}
 }
 
 void initialize()
 {
-	printRaceList();
-	printPluginList();
-	std::cout << std::endl;
 	printSelfSetting();
 	/* Add your own logics */
 }

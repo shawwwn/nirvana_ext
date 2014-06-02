@@ -1,7 +1,7 @@
 #ifndef H_PLUGIN_INFO
 #define H_PLUGIN_INFO
 
-#include "../Nirvana_ext_import.h"
+#include "../Nirvana_ext_export.h"
 #pragma comment(lib, "../Build/bin/Nirvana_ext.lib")
 
 // plugin info
