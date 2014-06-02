@@ -6,29 +6,12 @@
 #define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
 #include <vector>
-#include "IATHookHandler.h"
-
-/* exports */
-struct __declspec(dllexport) PluginParameter {
-	public:
-		PluginParameter(char* name, char* value, bool allocNew);
-		char* paramName;
-		char* paramValue;
-};
-
-struct __declspec(dllexport) Plugin {
-	public:
-		Plugin(char* name);
-		char* pluginName;
-		std::vector<PluginParameter*> paramList;
-};
-
-__declspec(dllexport) Plugin* getPluginInfo(const char* pluginName);
-
+#define BUILDING_NIR_EXT
+#include "Nirvana_ext_export.h"
 
 /* member variables */
-__declspec(dllexport) extern std::vector<char*> RaceList;
-__declspec(dllexport) extern std::vector<Plugin*> PluginList;
+extern std::vector<char*> RaceList;
+extern std::vector<Plugin*> PluginList;
 
 /* member functions */
 HINSTANCE loadDll(LPCSTR lpFileName);

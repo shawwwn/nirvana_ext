@@ -94,8 +94,8 @@ void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList)
 			if (leftStr==NULL || rightStr==NULL)
 				continue;	// invalid parameter
 
-			PluginParameter* param=new PluginParameter(leftStr, rightStr, false);
-			plg_ptr->paramList.push_back(param);
+			plg_ptr->pParameterList[plg_ptr->parameterSize] = new PluginParameter(leftStr, rightStr, true);
+			plg_ptr->parameterSize++;
 			continue;
 		}
 
@@ -103,4 +103,18 @@ void readIni(std::vector<char*> &raceList, std::vector<Plugin*> &pluginList)
 		//std::cout << "idle line: " << line << std::endl;
 	}
 	ini_ss.str(""); // clear the stream
+
+	/*
+	// construct an parameter array from the vector
+	plg_ptr->ppParameterList = new PluginParameter*[paramList.size()];
+	for (int i=0; i<paramList.size(); i++)
+	{
+		plg_ptr->ppParameterList[i] = paramList[i];
+	}
+	char buffer [33];
+	itoa (paramList.size(),buffer,10);
+	MessageBox(NULL, buffer, buffer, MB_OK);
+	plg_ptr->parameterSize = paramList.size();
+	paramList.clear();
+	*/
 }

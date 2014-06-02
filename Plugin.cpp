@@ -1,6 +1,6 @@
 // Plugin.cpp
-
 #include "Nirvana_ext.h"
+#include "Nirvana_ext_export.h"
 
 PluginParameter::PluginParameter(char* name, char* value, bool allocNew)
 {
@@ -25,12 +25,10 @@ PluginParameter::PluginParameter(char* name, char* value, bool allocNew)
 
 Plugin::Plugin(char* name)
 {
+	parameterSize = 0;
 	pluginName=new char[strlen(name)];
 	strcpy(pluginName, name);
 }
-
-std::vector<char*> RaceList;
-std::vector<Plugin*> PluginList;
 
 Plugin* getPluginInfo(const char* pluginName)
 {

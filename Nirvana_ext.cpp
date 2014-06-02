@@ -1,9 +1,13 @@
 // Nirvana_ext.cpp
 
+#include <iostream>
 #include "Nirvana_ext.h"
 #include "IniFileHandler.h"
-#include <iostream>
+#include "D3DHook.h"
 using namespace std;
+
+std::vector<char*> RaceList;
+std::vector<Plugin*> PluginList;
 
 // Loads dll(to whatever process it's attached to)
 HINSTANCE loadDll(LPCSTR lpFileName)

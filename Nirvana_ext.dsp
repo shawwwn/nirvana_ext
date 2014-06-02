@@ -64,11 +64,11 @@ PostBuild_Cmds=xcopy SampleFiles\*.* $(OutDir) /Y /S /H
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\IAT.CPP
+SOURCE=.\D3DHook.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\IATHookHandler.cpp
+SOURCE=.\HookBase.cpp
 # End Source File
 # Begin Source File
 
@@ -92,11 +92,11 @@ SOURCE=.\StringUtils.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\IAT.H
+SOURCE=.\D3DHook.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\IATHookHandler.h
+SOURCE=.\HookBase.h
 # End Source File
 # Begin Source File
 
@@ -108,7 +108,7 @@ SOURCE=.\Nirvana_ext.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Nirvana_ext_import.h
+SOURCE=.\Nirvana_ext_export.h
 # End Source File
 # Begin Source File
 
