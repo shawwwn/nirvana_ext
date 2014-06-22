@@ -1,14 +1,5 @@
 #include "HookBase.h"
 
-HMODULE GetGameModuleHandle()
-{
-	return GetModuleHandle(GAME_DLL);
-}
-HMODULE GetExeModuleHandle()
-{
-	return GetModuleHandle(NULL);
-}
-
 void inlineFuncHook::hook(UINT RVA_Offest, VOID* replaceFunc)
 {
 	m_pNewFunc = replaceFunc;

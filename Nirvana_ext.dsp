@@ -64,11 +64,23 @@ PostBuild_Cmds=xcopy SampleFiles\*.* $(OutDir) /Y /S /H
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=.\argcargv.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Command.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\D3DHook.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\HookBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\HookUtils.cpp
 # End Source File
 # Begin Source File
 
@@ -92,11 +104,23 @@ SOURCE=.\StringUtils.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=.\argcargv.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Command.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\D3DHook.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\HookBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\HookUtils.h
 # End Source File
 # Begin Source File
 

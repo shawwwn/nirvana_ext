@@ -4,6 +4,7 @@
 #include "Nirvana_ext.h"
 #include "IniFileHandler.h"
 #include "D3DHook.h"
+#include "Command.h"
 using namespace std;
 
 std::vector<char*> RaceList;
@@ -28,7 +29,7 @@ void loadPlugins()
 	}
 }
 
-void writeRaceSum()
+void writeRace()
 {
 	int size=RaceList.size();
 	if (size==0)
@@ -64,8 +65,9 @@ BOOL APIENTRY DllMain (HINSTANCE hInst, DWORD reason, LPVOID reserved)
 	if (reason==DLL_PROCESS_ATTACH)
 	{
 		DisableThreadLibraryCalls(hInst);
-		readIni(RaceList, PluginList);	// read settings from nirvana.ini
-		writeRaceSum();                 // write race name array to memory
+		readIni(RaceList, PluginList);	// read settings & race list from nirvana.ini
+		readCommands(RaceList);			// read from command line
+		writeRace();					// write race list to memory
 		loadDll("yd_jass_api.dll");     // load essential dll
 		loadPlugins();                  // load dlls specified in nirvana.ini
 		//loadDll("Nir_Plugin_Sample.dll");
